@@ -33,6 +33,11 @@ require_once 'header.php'; ?>
 	<div class="toggle-content advanced">
 		<div class="flex-section">
 			<div>
+				<h3 class="section-title">Custom Cup Name</h3>
+				<input type="text" class="custom-cup-name" placeholder="my_custom_cup" pattern="[a-z0-9_]+" />
+				<p class="small">Optional: Specify a name for the custom rankings folder (lowercase letters, numbers, underscores only)</p>
+			</div>
+			<div>
 				<h3 class="section-title">Subject Shields</h3>
 				<select class="subject-shield-select" index="0">
 					<option value="0">No shields</option>

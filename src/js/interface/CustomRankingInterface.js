@@ -32,6 +32,7 @@ function interfaceObject() {
     overrides: [],
     league: 1500,
     useDefaultMovesets: 1,
+    exportName: "", // Add this field for custom cup name
   };
 
   // The scenarios to rank - use all standard scenarios
@@ -90,6 +91,14 @@ function interfaceObject() {
     );
     $("body").on("click", ".filter .remove", deleteFilterConfirm);
     $("body").on("click", ".import-custom-group", importIdsFromCustomGroup);
+    $(".custom-cup-name").on("keyup change", function () {
+      var name = $(this)
+        .val()
+        .toLowerCase()
+        .replace(/[^a-z0-9_]/g, "");
+      cup.exportName = name;
+      $(this).val(name);
+    });
 
     battle = new Battle();
 
@@ -302,31 +311,46 @@ function interfaceObject() {
       // Display only the first scenario (leads/overall) in UI
       rankingInterface.displayRankingData(data[0]);
 
-      // Log all scenario results to console
+      // Log all scenario results and write to files
       console.log("=== All Custom Ranking Scenarios Generated ===");
       console.log("Total scenarios:", data.length);
 
-      // Log battle scenarios
+      // Download all battle scenarios as JSON files
+      var league = battle.getCP();
+      var cupName = cup.exportName || "custom";
+
       for (var i = 0; i < data.length; i++) {
         if (scenarios[i]) {
-          console.log("\nScenario: " + scenarios[i].slug);
-          console.log("Shields: [" + scenarios[i].shields.join(",") + "]");
-          console.log("Energy: [" + scenarios[i].energy.join(",") + "]");
-          console.log("JSON:", JSON.stringify(data[i]));
+          console.log("Downloading: " + scenarios[i].slug);
+
+          var json = JSON.stringify(data[i], null, 2);
+          var category = scenarios[i].slug;
+          var filename =
+            cupName + "_" + category + "_rankings-" + league + ".json";
+
+          self.downloadJSON(json, filename);
         }
       }
 
-      // Calculate and log overall + consistency rankings
+      // Calculate and download overall + consistency rankings
       if (data.length >= 5) {
-        console.log("\n=== Calculating Overall & Consistency Rankings ===");
+        console.log("Calculating Overall & Consistency Rankings...");
 
         var overallData = self.calculateOverallRankings(data);
-        console.log("\nCategory: overall");
-        console.log("JSON:", JSON.stringify(overallData));
-
         var consistencyData = self.calculateConsistencyRankings(data);
-        console.log("\nCategory: consistency");
-        console.log("JSON:", JSON.stringify(consistencyData));
+
+        // Download overall rankings
+        var overallJson = JSON.stringify(overallData, null, 2);
+        var overallFilename = cupName + "_overall_rankings-" + league + ".json";
+        self.downloadJSON(overallJson, overallFilename);
+        console.log("Downloading: overall");
+
+        // Download consistency rankings
+        var consistencyJson = JSON.stringify(consistencyData, null, 2);
+        var consistencyFilename =
+          cupName + "_consistency_rankings-" + league + ".json";
+        self.downloadJSON(consistencyJson, consistencyFilename);
+        console.log("Downloading: consistency");
       }
     }
   };
@@ -962,5 +986,21 @@ function interfaceObject() {
     }
 
     return rankings;
+  };
+
+  // Download JSON data as a file
+  this.downloadJSON = function (jsonData, filename) {
+    var blob = new Blob([jsonData], { type: "application/json" });
+    var url = window.URL.createObjectURL(blob);
+
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+
+    // Cleanup
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   };
 }
