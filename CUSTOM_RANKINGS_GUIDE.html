@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Rankings Guide - PvPoke</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        line-height: 1.6;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        border-bottom: 3px solid #3498db;
+        padding-bottom: 10px;
+      }
+      h2 {
+        color: #34495e;
+        margin-top: 30px;
+      }
+      h3 {
+        color: #2980b9;
+      }
+      .url-box {
+        background: #e8f4fd;
+        border: 2px solid #3498db;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 20px 0;
+        font-family: "Courier New", monospace;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .step {
+        background: #f8f9fa;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin: 15px 0;
+      }
+      .step-number {
+        background: #28a745;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      .feature-box {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 15px 0;
+      }
+      .download-box {
+        background: #d1ecf1;
+        border: 1px solid #bee5eb;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 15px 0;
+      }
+      .file-list {
+        background: #f8f9fa;
+        border-radius: 5px;
+        padding: 15px;
+        font-family: "Courier New", monospace;
+        margin: 10px 0;
+      }
+      .file-list li {
+        margin: 5px 0;
+      }
+      .warning {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+      .success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+      code {
+        background: #f1f3f4;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+      }
+      .toc {
+        background: #e9ecef;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+      .toc ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .toc li {
+        margin: 8px 0;
+      }
+      .toc a {
+        text-decoration: none;
+        color: #495057;
+        font-weight: 500;
+      }
+      .toc a:hover {
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎮 Custom Rankings Guide - PvPoke</h1>
+
+      <div class="toc">
+        <h3>📋 Table of Contents</h3>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#access">How to Access</a></li>
+          <li><a href="#setup">Setup Instructions</a></li>
+          <li><a href="#simulation">Running Simulations</a></li>
+          <li><a href="#downloads">Downloaded Files</a></li>
+          <li><a href="#customization">Customization Options</a></li>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+          <li><a href="#technical">Technical Details</a></li>
+        </ul>
+      </div>
+
+      <h2 id="overview">🎯 Overview</h2>
+      <p>
+        The Custom Rankings feature allows you to generate personalized Pokémon
+        battle rankings for any custom cup or meta you create. Instead of using
+        predefined cups, you can:
+      </p>
+      <ul>
+        <li>Include/exclude specific Pokémon</li>
+        <li>Set custom CP limits</li>
+        <li>Choose specific movesets</li>
+        <li>Generate rankings for all 7 categories</li>
+        <li>Download JSON files for further analysis</li>
+      </ul>
+
+      <h2 id="access">🌐 How to Access</h2>
+      <div class="url-box">
+        <a href="http://localhost/pvpoke/src/custom-rankings/" target="_blank">
+          http://localhost/pvpoke/src/custom-rankings/
+        </a>
+      </div>
+
+      <div class="warning">
+        <strong>⚠️ Important:</strong> Make sure your local PvPoke server is
+        running before accessing this URL.
+      </div>
+
+      <h2 id="setup">⚙️ Setup Instructions</h2>
+
+      <div class="step">
+        <div class="step-number">Step 1</div>
+        <h3>Start Your Local Server</h3>
+        <p>Ensure your PvPoke development server is running on localhost.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">Step 2</div>
+        <h3>Navigate to Custom Rankings</h3>
+        <p>
+          Open your browser and go to:
+          <code>http://localhost/pvpoke/src/custom-rankings/</code>
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">Step 3</div>
+        <h3>Configure Your Cup</h3>
+        <p>Set up your custom meta by:</p>
+        <ul>
+          <li>Selecting the league (CP limit)</li>
+          <li>Adding Pokémon to include</li>
+          <li>Adding Pokémon to exclude</li>
+          <li>Setting custom movesets if needed</li>
+        </ul>
+      </div>
+
+      <h2 id="simulation">🚀 Running Simulations</h2>
+
+      <div class="step">
+        <div class="step-number">Step 1</div>
+        <h3>Configure Filters</h3>
+        <p>
+          Use the interface to set up your custom Pokémon list and battle
+          conditions.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">Step 2</div>
+        <h3>Optional: Set Custom Cup Name</h3>
+        <div class="feature-box">
+          <strong>💡 Pro Tip:</strong> You can enter a custom name for your cup
+          (lowercase letters, numbers, underscores only). This will be used in
+          the downloaded filenames (e.g.,
+          <code>my_custom_cup_leads_rankings-1500.json</code>).
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">Step 3</div>
+        <h3>Click "Simulate"</h3>
+        <p>
+          Click the Simulate button to start the ranking process. This will:
+        </p>
+        <ul>
+          <li>Generate Pokémon list based on your filters</li>
+          <li>Run simulations for all 7 ranking categories</li>
+          <li>Calculate battle ratings and scores</li>
+          <li>Apply iterative weighting system</li>
+          <li>Generate final rankings</li>
+        </ul>
+      </div>
+
+      <h2 id="downloads">📁 Downloaded Files</h2>
+
+      <div class="download-box">
+        <strong>🎉 Automatic Downloads:</strong> When the simulation completes,
+        your browser will automatically download 7 JSON files to your Downloads
+        folder.
+      </div>
+
+      <h3>📋 File Categories</h3>
+      <p>The system generates rankings for 7 different categories:</p>
+
+      <div class="file-list">
+        <h4>Battle Scenarios (5 files):</h4>
+        <ul>
+          <li><strong>Leads:</strong> 1 shield vs 1 shield, 0 energy</li>
+          <li><strong>Closers:</strong> 0 shields vs 0 shields, 0 energy</li>
+          <li><strong>Switches:</strong> 0 shields vs 0 shields, 0 energy</li>
+          <li><strong>Chargers:</strong> 0 shields vs 0 shields, 100 energy</li>
+          <li><strong>Attackers:</strong> 0 shields vs 2 shields, 0 energy</li>
+        </ul>
+      </div>
+
+      <div class="file-list">
+        <h4>Derived Rankings (2 files):</h4>
+        <ul>
+          <li>
+            <strong>Overall:</strong> Weighted average of top 3 battle scenarios
+          </li>
+          <li>
+            <strong>Consistency:</strong> Based on Pokémon's move consistency
+            ratings
+          </li>
+        </ul>
+      </div>
+
+      <h3>📄 File Naming Convention</h3>
+      <div class="file-list">
+        <strong>Default format:</strong>
+        <ul>
+          <li>custom_leads_rankings-1500.json</li>
+          <li>custom_closers_rankings-1500.json</li>
+          <li>custom_switches_rankings-1500.json</li>
+          <li>custom_chargers_rankings-1500.json</li>
+          <li>custom_attackers_rankings-1500.json</li>
+          <li>custom_overall_rankings-1500.json</li>
+          <li>custom_consistency_rankings-1500.json</li>
+        </ul>
+
+        <strong>With custom cup name:</strong>
+        <ul>
+          <li>my_meta_leads_rankings-1500.json</li>
+          <li>my_meta_closers_rankings-1500.json</li>
+          <li>etc...</li>
+        </ul>
+      </div>
+
+      <h2 id="customization">🎨 Customization Options</h2>
+
+      <h3>🔧 Available Settings</h3>
+      <ul>
+        <li>
+          <strong>League Selection:</strong> Choose CP limit (1500, 2500, etc.)
+        </li>
+        <li><strong>Include List:</strong> Specify which Pokémon to include</li>
+        <li><strong>Exclude List:</strong> Specify which Pokémon to exclude</li>
+        <li>
+          <strong>Moveset Overrides:</strong> Custom movesets for specific
+          Pokémon
+        </li>
+        <li><strong>Cup Name:</strong> Custom name for downloaded files</li>
+      </ul>
+
+      <h3>📊 Ranking Algorithm</h3>
+      <p>The system uses an advanced ranking algorithm that includes:</p>
+      <ul>
+        <li>
+          <strong>Round-robin battles:</strong> Each Pokémon battles every other
+          Pokémon
+        </li>
+        <li>
+          <strong>Battle rating calculation:</strong> Based on health and damage
+        </li>
+        <li>
+          <strong>Iterative weighting:</strong> Strength of schedule system
+        </li>
+        <li><strong>Score adjustments:</strong> Soft caps and role bonuses</li>
+      </ul>
+
+      <h2 id="troubleshooting">🔧 Troubleshooting</h2>
+
+      <div class="warning">
+        <h3>❌ Common Issues</h3>
+        <ul>
+          <li>
+            <strong>404 Error:</strong> Make sure your local server is running
+          </li>
+          <li>
+            <strong>No Downloads:</strong> Check browser popup blocker settings
+          </li>
+          <li>
+            <strong>Empty Rankings:</strong> Verify your include/exclude filters
+            aren't too restrictive
+          </li>
+          <li>
+            <strong>Slow Performance:</strong> Large Pokémon lists take longer
+            to process
+          </li>
+        </ul>
+      </div>
+
+      <div class="success">
+        <h3>✅ Tips for Success</h3>
+        <ul>
+          <li>Start with smaller Pokémon lists for faster testing</li>
+          <li>Use the browser console to monitor progress</li>
+          <li>Check Downloads folder for generated files</li>
+          <li>Use descriptive cup names for organization</li>
+        </ul>
+      </div>
+
+      <h2 id="technical">⚙️ Technical Details</h2>
+
+      <h3>🔬 Algorithm Overview</h3>
+      <ol>
+        <li>
+          <strong>Filtering:</strong> Apply include/exclude lists and CP limits
+        </li>
+        <li>
+          <strong>Simulation:</strong> Run round-robin battles for each scenario
+        </li>
+        <li>
+          <strong>Rating:</strong> Calculate battle ratings based on performance
+        </li>
+        <li>
+          <strong>Weighting:</strong> Apply iterative strength-of-schedule
+          adjustments
+        </li>
+        <li>
+          <strong>Scoring:</strong> Generate final scores with role-specific
+          bonuses
+        </li>
+        <li><strong>Ranking:</strong> Sort by final scores and normalize</li>
+      </ol>
+
+      <h3>📁 File Structure</h3>
+      <div class="file-list">
+        <strong>JSON Structure:</strong>
+        <ul>
+          <li>speciesId: Pokémon identifier</li>
+          <li>speciesName: Display name</li>
+          <li>moveset: [fast move, charged move 1, charged move 2]</li>
+          <li>score: Final ranking score (0-100)</li>
+          <li>rank: Position in rankings</li>
+        </ul>
+      </div>
+
+      <h3>🌐 Browser Compatibility</h3>
+      <p>This feature requires modern browsers that support:</p>
+      <ul>
+        <li>Blob API</li>
+        <li>URL.createObjectURL()</li>
+        <li>Programmatic file downloads</li>
+      </ul>
+
+      <hr />
+      <p style="text-align: center; color: #666; margin-top: 40px">
+        <strong>Custom Rankings Guide</strong> | PvPoke | Generated on
+        <span id="date"></span>
+      </p>
+    </div>
+
+    <script>
+      document.getElementById("date").textContent =
+        new Date().toLocaleDateString();
+    </script>
+  </body>
+</html>
