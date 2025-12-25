@@ -4,16 +4,12 @@
     "chargedMoves": ["BRUTAL_SWING", "TRAILBLAZE"]
 }, {
     "speciesId": "bellibolt",
-    "fastMove": "SUCkER_PUNCH",
+    "fastMove": "SUCKER_PUNCH",
     "chargedMoves": ["PARABOLIC_CHARGE","ZAP_CANNON"]
 }, {
     "speciesId": "bellibolt",
     "fastMove": "THUNDER_SHOCK",
     "chargedMoves": ["PARABOLIC_CHARGE","ZAP_CANNON"]
-}, {
-    "speciesId": "blastoise",
-    "fastMove": "ROLLOUT",
-    "chargedMoves": ["HYDRO_CANNON", "SKULL_BASH"]
 }, {
     "speciesId": "charizard",
     "fastMove": "DRAGON_BREATH",
@@ -31,13 +27,9 @@
     "fastMove": "DOUBLE_KICK",
     "chargedMoves": ["SACRED_SWORD", "STONE_EDGE"]
 }, {
-    "speciesId": "cradily",
-    "fastMove": "ACID",
-    "chargedMoves": ["ROCK_TOMB", "GRASS_KNOT"]
-}, {
-    "speciesId": "cradily",
-    "fastMove": "BULLET_SEED",
-    "chargedMoves": ["ROCK_TOMB", "GRASS_KNOT"]
+    "speciesId": "cresselia",
+    "fastMove": "CONFUSION",
+    "chargedMoves": ["GRASS_KNOT", "MOONBLAST"]
 }, {
     "speciesId": "dragonite_shadow",
     "fastMove": "DRAGON_BREATH",
@@ -49,41 +41,17 @@
     "chargedMoves": ["AQUA_TAIL", "CRUNCH"],
     "shadowType": "shadow"
 }, {
-    "speciesId": "dusknoir",
-    "fastMove": "ASTONISH",
-    "chargedMoves": ["SHADOW_PUNCH", "DYNAMIC_PUNCH"]
-}, {
-    "speciesId": "dusknoir_shadow",
-    "fastMove": "ASTONISH",
-    "chargedMoves": ["SHADOW_PUNCH", "DYNAMIC_PUNCH"]
-}, {
     "speciesId": "empoleon",
     "fastMove": "METAL_SOUND",
-    "chargedMoves": ["HYDRO_CANNON", "DRILL_PECK"]
+    "chargedMoves": ["HYDRO_CANNON","DRILL_PECK"]
 }, {
-    "speciesId": "feraligatr",
-    "fastMove": "SHADOW_CLAW",
-    "chargedMoves": ["HYDRO_CANNON", "ICE_BEAM"]
+    "speciesId": "empoleon_shadow",
+    "fastMove": "METAL_SOUND",
+    "chargedMoves": ["HYDRO_CANNON","DRILL_PECK"]
 }, {
-    "speciesId": "feraligatr_shadow",
-    "fastMove": "SHADOW_CLAW",
-    "chargedMoves": ["HYDRO_CANNON", "ICE_BEAM"]
-}, {
-    "speciesId": "forretress",
-    "fastMove": "BUG_BITE",
-    "chargedMoves": ["ROCK_TOMB", "EARTHQUAKE"]
-}, {
-    "speciesId": "forretress",
-    "fastMove": "VOLT_SWITCH",
-    "chargedMoves": ["ROCK_TOMB", "EARTHQUAKE"]
-}, {
-    "speciesId": "gastrodon",
-    "fastMove": "MUD_SLAP",
-    "chargedMoves": ["BODY_SLAM", "EARTH_POWER"]
-}, {
-    "speciesId": "gastrodon",
-    "fastMove": "MUD_SLAP",
-    "chargedMoves": ["BODY_SLAM", "WATER_PULSE"]
+    "speciesId": "florges",
+    "fastMove": "FAIRY_WIND",
+    "chargedMoves": ["CHILLING_WATER","MOONBLAST"]
 }, {
     "speciesId": "giratina_altered",
     "fastMove": "DRAGON_BREATH",
@@ -100,6 +68,10 @@
     "speciesId": "guzzlord",
     "fastMove": "DRAGON_TAIL",
     "chargedMoves": ["BRUTAL_SWING", "DRAGON_CLAW"]
+}, {
+    "speciesId": "jellicent",
+    "fastMove": "HEX",
+    "chargedMoves": ["SURF","SHADOW_BALL"]
 }, {
     "speciesId": "kommo_o",
     "fastMove": "DRAGON_TAIL",
@@ -126,7 +98,7 @@
     "chargedMoves": ["PSYSTRIKE", "DYNAMIC_PUNCH"]
 }, {
     "speciesId": "moltres_galarian",
-    "fastMove": "SUCkER_PUNCH",
+    "fastMove": "SUCKER_PUNCH",
     "chargedMoves": ["FLY","BRAVE_BIRD"]
 }, {
     "speciesId": "nidoqueen",
@@ -190,6 +162,14 @@
     "fastMove": "ACID",
     "chargedMoves": ["SCALD","BLIZZARD"]
 }, {
+    "speciesId": "togekiss",
+    "fastMove": "PECK",
+    "chargedMoves": ["AURA_SPHERE","PSYSHOCK"]
+}, {
+    "speciesId": "togekiss",
+    "fastMove": "PECK",
+    "chargedMoves": ["AURA_SPHERE","DAZZLING_GLEAM"]
+}, {
     "speciesId": "typhlosion",
     "fastMove": "INCINERATE",
     "chargedMoves": ["BLAST_BURN", "THUNDER_PUNCH"]
@@ -201,4 +181,20 @@
     "speciesId": "virizion",
     "fastMove": "DOUBLE_KICK",
     "chargedMoves": ["LEAF_BLADE", "SACRED_SWORD"]
+}, {
+    "speciesId": "weezing_galarian",
+    "fastMove": "FAIRY_WIND",
+    "chargedMoves": ["BRUTAL_SWING", "SLUDGE"]
+}, {
+    "speciesId": "weezing_galarian_shadow",
+    "fastMove": "FAIRY_WIND",
+    "chargedMoves": ["BRUTAL_SWING", "SLUDGE"]
+}, {
+    "speciesId": "zygarde_complete",
+    "fastMove": "DRAGON_TAIL",
+    "chargedMoves": ["CRUNCH", "EARTHQUAKE"]
+}, {
+    "speciesId": "zygarde_complete",
+    "fastMove": "DRAGON_TAIL",
+    "chargedMoves": ["OUTRAGE", "EARTHQUAKE"]
 }]

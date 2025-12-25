@@ -14,56 +14,56 @@ $formats = array (
   ),
   1 => 
   array (
-    'title' => 'Halloween Cup',
-    'cup' => 'halloween',
+    'title' => 'Holiday Cup (Great League)',
+    'cup' => 'holiday',
     'cp' => 1500,
-    'meta' => 'halloween',
+    'meta' => 'holiday',
     'showCup' => true,
     'showFormat' => true,
     'showMeta' => true,
     'rules' => 
     array (
       0 => 'Pokémon must be at or below 1,500 CP to enter.',
-      1 => 'Only Poison-, Bug-, Ghost-, Dark-, and Fairy-type Pokémon are eligible.',
+      1 => 'Only Normal-, Grass-, Electric-, Ice-, Flying-, and Ghost-type Pokémon are eligible.',
     ),
   ),
   2 => 
   array (
-    'title' => 'Jungle Cup',
-    'cup' => 'jungle',
+    'title' => 'Holiday Cup (Ultra League)',
+    'cup' => 'holiday',
+    'cp' => 2500,
+    'meta' => 'holidayultra',
+    'showCup' => true,
+    'showFormat' => true,
+    'showMeta' => true,
+    'rules' => 
+    array (
+      0 => 'Pokémon must be at or below 2,500 CP to enter.',
+      1 => 'Only Normal-, Grass-, Electric-, Ice-, Flying-, and Ghost-type Pokémon are eligible.',
+    ),
+  ),
+  3 => 
+  array (
+    'title' => 'Sunshine Cup',
+    'cup' => 'sunshine',
     'cp' => 1500,
-    'meta' => 'jungle',
+    'meta' => 'sunshine',
     'showCup' => true,
     'showFormat' => true,
     'showMeta' => true,
     'rules' => 
     array (
       0 => 'Pokémon must be at or below 1,500 CP to enter.',
-      1 => 'Only Normal-, Grass-, Electric-, Poison-, Ground-, Flying-, Bug-, and Dark-type Pokémon are eligible.',
-      2 => 'The following Pokémon will not be allowed: Gligar, Galarian Stunfisk',
-    ),
-  ),
-  3 => 
-  array (
-    'title' => 'Mega Master League',
-    'cup' => 'mega',
-    'cp' => 10000,
-    'meta' => 'mega',
-    'showCup' => true,
-    'showFormat' => true,
-    'showMeta' => true,
-    'rules' => 
-    array (
-      0 => 'No CP limit.',
-      1 => 'Mega-Evolved Pokémon are allowed.',
+      1 => 'Only Normal-, Fire-, Grass-, and Ground-type Pokémon are eligible.',
+      2 => 'The following Pokémon will not be allowed: Charizard',
     ),
   ),
   4 => 
   array (
-    'title' => 'LAIC 2025 Championship Series Cup',
-    'cup' => 'laic2025',
+    'title' => 'EUIC 2026 Championship Series Cup',
+    'cup' => 'euic2026',
     'cp' => 1500,
-    'meta' => 'laic2025',
+    'meta' => 'euic2026',
     'showCup' => true,
     'showFormat' => true,
     'showMeta' => true,
@@ -100,20 +100,20 @@ $formats = array (
   ),
   8 => 
   array (
-    'title' => 'Devon Metamorphosis Cup',
-    'cup' => 'metamorphosis',
+    'title' => 'Devon Nettle Cup',
+    'cup' => 'nettle',
     'cp' => 1500,
-    'meta' => 'metamorphosis',
+    'meta' => 'nettle',
     'showCup' => true,
     'showFormat' => true,
     'showMeta' => true,
   ),
   9 => 
   array (
-    'title' => 'Gymbreakers Pillar Cup Remix',
-    'cup' => 'pillar3',
+    'title' => 'Gymbreakers LAIC 2025 Remix',
+    'cup' => 'laic2025remix',
     'cp' => 1500,
-    'meta' => 'pillar3',
+    'meta' => 'laic2025remix',
     'showCup' => true,
     'showFormat' => true,
     'showMeta' => true,
