@@ -10,30 +10,17 @@
 		"hideRankings": true
 	},
 	{
-		"title": "Holiday Cup (Ultra League)",
-		"cup": "holiday",
-		"cp": 2500,
-		"meta": "holidayultra",
+		"title": "Master Premier Cup",
+		"cup": "premier",
+		"cp": 10000,
+		"meta": "premiermaster",
 		"showCup": true,
-		"showFormat": true,
+		"showFormat": false,
 		"showMeta": true,
+		"hideRankings": true,
 		"rules": [
-			"Pokémon must be at or below 2,500 CP to enter.",
-			"Only Normal-, Grass-, Electric-, Ice-, Flying-, and Ghost-type Pokémon are eligible."
-		]
-	},
-	{
-		"title": "Sunshine Cup",
-		"cup": "sunshine",
-		"cp": 1500,
-		"meta": "sunshine",
-		"showCup": true,
-		"showFormat": true,
-		"showMeta": true,
-		"rules": [
-			"Pokémon must be at or below 1,500 CP to enter.",
-			"Only Normal-, Fire-, Grass-, and Ground-type Pokémon are eligible.",
-			"The following Pokémon will not be allowed: Charizard"
+			"No CP limit.",
+			"Legendary Pokémon, Mythical Pokémon, and Ultra Beasts are not eligible."
 		]
 	},
 	{
@@ -46,22 +33,32 @@
 		"showMeta": true
 	},
 	{
-		"title": "Battle Frontier (Calamity)",
-		"cup": "calamity",
+		"title": "Battle Frontier (Majestic)",
+		"cup": "majestic",
 		"cp": 1500,
-		"meta": "calamity",
+		"meta": "majestic",
 		"showCup": true,
 		"showFormat": true,
 		"showMeta": true
 	},
 	{
-		"title": "Battle Frontier (Ultra)",
-		"cup": "battlefrontierultra",
+		"title": "Battle Frontier (Crucible)",
+		"cup": "crucible",
 		"cp": 2500,
-		"meta": "ultra",
+		"meta": "crucible",
 		"showCup": true,
 		"showFormat": true,
 		"showMeta": true
+	},
+	{
+		"title": "Battle Frontier (Great)",
+		"cup": "battlefrontiergreat",
+		"cp": 1500,
+		"meta": "great",
+		"showCup": false,
+		"showFormat": true,
+		"showMeta": false,
+		"hideRankings": true
 	},
 	{
 		"title": "Battle Frontier (Master)",
@@ -73,10 +70,10 @@
 		"showMeta": true
 	},
 	{
-		"title": "Devon Nettle Cup",
-		"cup": "nettle",
+		"title": "Devon Amor Cup",
+		"cup": "amor",
 		"cp": 1500,
-		"meta": "nettle",
+		"meta": "amor",
 		"showCup": true,
 		"showFormat": true,
 		"showMeta": true

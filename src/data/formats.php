@@ -14,36 +14,21 @@ $formats = array (
   ),
   1 => 
   array (
-    'title' => 'Holiday Cup (Ultra League)',
-    'cup' => 'holiday',
-    'cp' => 2500,
-    'meta' => 'holidayultra',
+    'title' => 'Master Premier Cup',
+    'cup' => 'premier',
+    'cp' => 10000,
+    'meta' => 'premiermaster',
     'showCup' => true,
-    'showFormat' => true,
+    'showFormat' => false,
     'showMeta' => true,
+    'hideRankings' => true,
     'rules' => 
     array (
-      0 => 'Pokémon must be at or below 2,500 CP to enter.',
-      1 => 'Only Normal-, Grass-, Electric-, Ice-, Flying-, and Ghost-type Pokémon are eligible.',
+      0 => 'No CP limit.',
+      1 => 'Legendary Pokémon, Mythical Pokémon, and Ultra Beasts are not eligible.',
     ),
   ),
   2 => 
-  array (
-    'title' => 'Sunshine Cup',
-    'cup' => 'sunshine',
-    'cp' => 1500,
-    'meta' => 'sunshine',
-    'showCup' => true,
-    'showFormat' => true,
-    'showMeta' => true,
-    'rules' => 
-    array (
-      0 => 'Pokémon must be at or below 1,500 CP to enter.',
-      1 => 'Only Normal-, Fire-, Grass-, and Ground-type Pokémon are eligible.',
-      2 => 'The following Pokémon will not be allowed: Charizard',
-    ),
-  ),
-  3 => 
   array (
     'title' => 'EUIC 2026 Championship Series Cup',
     'cup' => 'euic2026',
@@ -53,25 +38,36 @@ $formats = array (
     'showFormat' => true,
     'showMeta' => true,
   ),
+  3 => 
+  array (
+    'title' => 'Battle Frontier (Majestic)',
+    'cup' => 'majestic',
+    'cp' => 1500,
+    'meta' => 'majestic',
+    'showCup' => true,
+    'showFormat' => true,
+    'showMeta' => true,
+  ),
   4 => 
   array (
-    'title' => 'Battle Frontier (Calamity)',
-    'cup' => 'calamity',
-    'cp' => 1500,
-    'meta' => 'calamity',
+    'title' => 'Battle Frontier (Crucible)',
+    'cup' => 'crucible',
+    'cp' => 2500,
+    'meta' => 'crucible',
     'showCup' => true,
     'showFormat' => true,
     'showMeta' => true,
   ),
   5 => 
   array (
-    'title' => 'Battle Frontier (Ultra)',
-    'cup' => 'battlefrontierultra',
-    'cp' => 2500,
-    'meta' => 'ultra',
-    'showCup' => true,
+    'title' => 'Battle Frontier (Great)',
+    'cup' => 'battlefrontiergreat',
+    'cp' => 1500,
+    'meta' => 'great',
+    'showCup' => false,
     'showFormat' => true,
-    'showMeta' => true,
+    'showMeta' => false,
+    'hideRankings' => true,
   ),
   6 => 
   array (
@@ -85,10 +81,10 @@ $formats = array (
   ),
   7 => 
   array (
-    'title' => 'Devon Nettle Cup',
-    'cup' => 'nettle',
+    'title' => 'Devon Amor Cup',
+    'cup' => 'amor',
     'cp' => 1500,
-    'meta' => 'nettle',
+    'meta' => 'amor',
     'showCup' => true,
     'showFormat' => true,
     'showMeta' => true,
