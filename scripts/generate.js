@@ -92,6 +92,11 @@ function enhanceRankingsFile(filePath, moveTypes, pokemonTypes) {
     // Enhance matchups
     if (pokemon.matchups) {
       for (const matchup of pokemon.matchups) {
+        // Add opponent types
+        if (pokemonTypes[matchup.opponent]) {
+          matchup.types = pokemonTypes[matchup.opponent];
+        }
+        // Add opponent moves
         const opponentMoveset = movesetLookup[matchup.opponent];
         if (opponentMoveset) {
           matchup.moves = opponentMoveset.map(moveId => ({
@@ -105,6 +110,11 @@ function enhanceRankingsFile(filePath, moveTypes, pokemonTypes) {
     // Enhance counters
     if (pokemon.counters) {
       for (const counter of pokemon.counters) {
+        // Add opponent types
+        if (pokemonTypes[counter.opponent]) {
+          counter.types = pokemonTypes[counter.opponent];
+        }
+        // Add opponent moves
         const opponentMoveset = movesetLookup[counter.opponent];
         if (opponentMoveset) {
           counter.moves = opponentMoveset.map(moveId => ({
