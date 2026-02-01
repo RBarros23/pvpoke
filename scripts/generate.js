@@ -20,6 +20,51 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 
+// Copy directory recursively
+function copyDirSync(src, dest) {
+  if (!fs.existsSync(src)) {
+    return false;
+  }
+  fs.mkdirSync(dest, { recursive: true });
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDirSync(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+  return true;
+}
+
+// Copy rankings to root data folder
+function copyRankingsToRoot(cupNames) {
+  const srcBase = path.join(projectRoot, 'src', 'data', 'rankings');
+  const destBase = path.join(projectRoot, 'data', 'rankings');
+
+  const spinner = ora('Copying rankings to data/rankings/...').start();
+
+  // Always copy 'all' folder
+  const allSrc = path.join(srcBase, 'all');
+  const allDest = path.join(destBase, 'all');
+  if (copyDirSync(allSrc, allDest)) {
+    spinner.text = 'Copied rankings/all';
+  }
+
+  // Copy each generated cup folder
+  for (const cupName of cupNames) {
+    const cupSrc = path.join(srcBase, cupName);
+    const cupDest = path.join(destBase, cupName);
+    if (copyDirSync(cupSrc, cupDest)) {
+      spinner.text = `Copied rankings/${cupName}`;
+    }
+  }
+
+  spinner.succeed(`Rankings copied to data/rankings/`);
+}
+
 // Parse command line arguments
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -297,6 +342,36 @@ async function generateCustomCup(config, debug = false) {
     // Wait a bit more for everything to initialize
     await new Promise(r => setTimeout(r, 3000));
 
+    // Override downloadJSON to save to write.php instead of downloading
+    await page.evaluate((cupName) => {
+      customRankingInterface.downloadJSON = function(jsonData, filename) {
+        // Parse filename to extract category: cupname_category_rankings-league.json
+        const parts = filename.replace('.json', '').split('_');
+        const category = parts[parts.length - 2]; // e.g., "overall", "leads", etc.
+        const leaguePart = parts[parts.length - 1]; // e.g., "rankings-1500"
+        const league = leaguePart.replace('rankings-', '');
+
+        // POST to write.php
+        $.ajax({
+          url: 'data/write.php',
+          type: 'POST',
+          data: {
+            data: jsonData,
+            league: league,
+            category: category,
+            cup: cupName
+          },
+          dataType: 'json',
+          success: function(data) {
+            console.log('Saved: /' + cupName + '/' + category + '/rankings-' + league + '.json');
+          },
+          error: function(request, error) {
+            console.log('Save error: ' + error);
+          }
+        });
+      };
+    }, config.name);
+
     // Import cup settings (filters, league)
     spinner.text = 'Importing cup settings...';
     await page.evaluate((cupConfig) => {
@@ -337,8 +412,8 @@ async function waitForRankingsComplete(page, spinner) {
   while (Date.now() - startTime < timeout) {
     const text = spinner.text || '';
 
-    // Check if we've saved the last scenario (attackers or overall)
-    if (text.includes('attackers/rankings-') || text.includes('overall/rankings-')) {
+    // Check if we've saved the last scenario (consistency is last for custom rankings)
+    if (text.includes('consistency/rankings-') || text.includes('overall/rankings-') || text.includes('attackers/rankings-')) {
       await new Promise(r => setTimeout(r, 5000)); // Wait for final saves
       return;
     }
@@ -379,18 +454,27 @@ async function main() {
       const cups = loadConfig(args.configFile);
       console.log(chalk.cyan(`Found ${cups.length} cup(s) to generate\n`));
 
+      const cupNames = [];
       for (let i = 0; i < cups.length; i++) {
         const cup = cups[i];
         console.log(chalk.yellow(`[${i + 1}/${cups.length}] Generating ${cup.name}...`));
         await generateCustomCup(cup, args.debug);
+        cupNames.push(cup.name);
         console.log(chalk.green(`✓ ${cup.name} complete\n`));
       }
 
+      // Copy rankings to root data folder
+      copyRankingsToRoot(cupNames);
+
       console.log(chalk.green.bold(`\nAll done! Generated ${cups.length} cup(s)`));
-      console.log(chalk.gray(`Results saved to src/data/rankings/\n`));
+      console.log(chalk.gray(`Results copied to data/rankings/\n`));
     } else {
       await generatePredefinedCup(args.cup, args.league || '1500');
-      console.log(chalk.green(`\nDone! Results saved to src/data/rankings/${args.cup}/\n`));
+
+      // Copy rankings to root data folder
+      copyRankingsToRoot([args.cup]);
+
+      console.log(chalk.green(`\nDone! Results copied to data/rankings/${args.cup}/\n`));
     }
 
   } catch (error) {
