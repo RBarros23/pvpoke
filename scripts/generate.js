@@ -39,30 +39,37 @@ function copyDirSync(src, dest) {
   return true;
 }
 
-// Copy rankings to root data folder
-function copyRankingsToRoot(cupNames) {
-  const srcBase = path.join(projectRoot, 'src', 'data', 'rankings');
-  const destBase = path.join(projectRoot, 'data', 'rankings');
+// Copy data to root data folder
+function copyDataToRoot(cupNames) {
+  const srcDataBase = path.join(projectRoot, 'src', 'data');
+  const destDataBase = path.join(projectRoot, 'data');
 
-  const spinner = ora('Copying rankings to data/rankings/...').start();
+  const spinner = ora('Copying data to data/...').start();
 
-  // Always copy 'all' folder
-  const allSrc = path.join(srcBase, 'all');
-  const allDest = path.join(destBase, 'all');
+  // Copy gamemaster folder
+  const gamemasterSrc = path.join(srcDataBase, 'gamemaster');
+  const gamemasterDest = path.join(destDataBase, 'gamemaster');
+  if (copyDirSync(gamemasterSrc, gamemasterDest)) {
+    spinner.text = 'Copied gamemaster';
+  }
+
+  // Copy rankings/all folder
+  const allSrc = path.join(srcDataBase, 'rankings', 'all');
+  const allDest = path.join(destDataBase, 'rankings', 'all');
   if (copyDirSync(allSrc, allDest)) {
     spinner.text = 'Copied rankings/all';
   }
 
   // Copy each generated cup folder
   for (const cupName of cupNames) {
-    const cupSrc = path.join(srcBase, cupName);
-    const cupDest = path.join(destBase, cupName);
+    const cupSrc = path.join(srcDataBase, 'rankings', cupName);
+    const cupDest = path.join(destDataBase, 'rankings', cupName);
     if (copyDirSync(cupSrc, cupDest)) {
       spinner.text = `Copied rankings/${cupName}`;
     }
   }
 
-  spinner.succeed(`Rankings copied to data/rankings/`);
+  spinner.succeed('Data copied to data/');
 }
 
 // Parse command line arguments
@@ -464,7 +471,7 @@ async function main() {
       }
 
       // Copy rankings to root data folder
-      copyRankingsToRoot(cupNames);
+      copyDataToRoot(cupNames);
 
       console.log(chalk.green.bold(`\nAll done! Generated ${cups.length} cup(s)`));
       console.log(chalk.gray(`Results copied to data/rankings/\n`));
@@ -472,7 +479,7 @@ async function main() {
       await generatePredefinedCup(args.cup, args.league || '1500');
 
       // Copy rankings to root data folder
-      copyRankingsToRoot([args.cup]);
+      copyDataToRoot([args.cup]);
 
       console.log(chalk.green(`\nDone! Results copied to data/rankings/${args.cup}/\n`));
     }
