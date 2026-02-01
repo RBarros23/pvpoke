@@ -39,6 +39,85 @@ function copyDirSync(src, dest) {
   return true;
 }
 
+// Load moves.json and create moveId -> type lookup
+function loadMoveTypes() {
+  const movesPath = path.join(projectRoot, 'src', 'data', 'gamemaster', 'moves.json');
+  const moves = JSON.parse(fs.readFileSync(movesPath, 'utf8'));
+  const moveTypes = {};
+  for (const move of moves) {
+    moveTypes[move.moveId] = move.type;
+  }
+  return moveTypes;
+}
+
+// Enhance rankings file with opponent move data
+function enhanceRankingsFile(filePath, moveTypes) {
+  const content = fs.readFileSync(filePath, 'utf8');
+  const rankings = JSON.parse(content);
+
+  // Build speciesId -> moveset lookup
+  const movesetLookup = {};
+  for (const pokemon of rankings) {
+    if (pokemon.speciesId && pokemon.moveset) {
+      movesetLookup[pokemon.speciesId] = pokemon.moveset;
+    }
+  }
+
+  // Enhance each Pokemon's matchups and counters
+  for (const pokemon of rankings) {
+    // Enhance matchups
+    if (pokemon.matchups) {
+      for (const matchup of pokemon.matchups) {
+        const opponentMoveset = movesetLookup[matchup.opponent];
+        if (opponentMoveset) {
+          matchup.moves = opponentMoveset.map(moveId => ({
+            moveId,
+            type: moveTypes[moveId] || 'unknown'
+          }));
+        }
+      }
+    }
+
+    // Enhance counters
+    if (pokemon.counters) {
+      for (const counter of pokemon.counters) {
+        const opponentMoveset = movesetLookup[counter.opponent];
+        if (opponentMoveset) {
+          counter.moves = opponentMoveset.map(moveId => ({
+            moveId,
+            type: moveTypes[moveId] || 'unknown'
+          }));
+        }
+      }
+    }
+  }
+
+  return rankings;
+}
+
+// Copy and enhance rankings directory
+function copyAndEnhanceRankings(src, dest, moveTypes) {
+  if (!fs.existsSync(src)) {
+    return false;
+  }
+  fs.mkdirSync(dest, { recursive: true });
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyAndEnhanceRankings(srcPath, destPath, moveTypes);
+    } else if (entry.name.endsWith('.json')) {
+      // Enhance rankings JSON files
+      const enhanced = enhanceRankingsFile(srcPath, moveTypes);
+      fs.writeFileSync(destPath, JSON.stringify(enhanced, null, '\t'));
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+  return true;
+}
+
 // Copy data to root data folder
 function copyDataToRoot(cups) {
   const srcDataBase = path.join(projectRoot, 'src', 'data');
@@ -67,19 +146,23 @@ function copyDataToRoot(cups) {
   fs.writeFileSync(formatsPath, JSON.stringify(formats, null, '\t'));
   spinner.text = 'Generated custom formats.json';
 
-  // Copy rankings/all folder
+  // Load move types for enhancing rankings
+  const moveTypes = loadMoveTypes();
+  spinner.text = 'Loaded move types';
+
+  // Copy and enhance rankings/all folder
   const allSrc = path.join(srcDataBase, 'rankings', 'all');
   const allDest = path.join(destDataBase, 'rankings', 'all');
-  if (copyDirSync(allSrc, allDest)) {
-    spinner.text = 'Copied rankings/all';
+  if (copyAndEnhanceRankings(allSrc, allDest, moveTypes)) {
+    spinner.text = 'Enhanced rankings/all';
   }
 
-  // Copy each generated cup folder
+  // Copy and enhance each generated cup folder
   for (const cup of cups) {
     const cupSrc = path.join(srcDataBase, 'rankings', cup.name);
     const cupDest = path.join(destDataBase, 'rankings', cup.name);
-    if (copyDirSync(cupSrc, cupDest)) {
-      spinner.text = `Copied rankings/${cup.name}`;
+    if (copyAndEnhanceRankings(cupSrc, cupDest, moveTypes)) {
+      spinner.text = `Enhanced rankings/${cup.name}`;
     }
   }
 
