@@ -40,7 +40,7 @@ function copyDirSync(src, dest) {
 }
 
 // Copy data to root data folder
-function copyDataToRoot(cupNames) {
+function copyDataToRoot(cups) {
   const srcDataBase = path.join(projectRoot, 'src', 'data');
   const destDataBase = path.join(projectRoot, 'data');
 
@@ -53,6 +53,20 @@ function copyDataToRoot(cupNames) {
     spinner.text = 'Copied gamemaster';
   }
 
+  // Generate custom formats.json with only the generated cups
+  const formats = cups.map(cup => ({
+    title: cup.title || cup.name,
+    cup: cup.name,
+    cp: cup.league,
+    meta: cup.name,
+    showCup: true,
+    showFormat: true,
+    showMeta: true
+  }));
+  const formatsPath = path.join(gamemasterDest, 'formats.json');
+  fs.writeFileSync(formatsPath, JSON.stringify(formats, null, '\t'));
+  spinner.text = 'Generated custom formats.json';
+
   // Copy rankings/all folder
   const allSrc = path.join(srcDataBase, 'rankings', 'all');
   const allDest = path.join(destDataBase, 'rankings', 'all');
@@ -61,11 +75,11 @@ function copyDataToRoot(cupNames) {
   }
 
   // Copy each generated cup folder
-  for (const cupName of cupNames) {
-    const cupSrc = path.join(srcDataBase, 'rankings', cupName);
-    const cupDest = path.join(destDataBase, 'rankings', cupName);
+  for (const cup of cups) {
+    const cupSrc = path.join(srcDataBase, 'rankings', cup.name);
+    const cupDest = path.join(destDataBase, 'rankings', cup.name);
     if (copyDirSync(cupSrc, cupDest)) {
-      spinner.text = `Copied rankings/${cupName}`;
+      spinner.text = `Copied rankings/${cup.name}`;
     }
   }
 
@@ -461,25 +475,24 @@ async function main() {
       const cups = loadConfig(args.configFile);
       console.log(chalk.cyan(`Found ${cups.length} cup(s) to generate\n`));
 
-      const cupNames = [];
       for (let i = 0; i < cups.length; i++) {
         const cup = cups[i];
         console.log(chalk.yellow(`[${i + 1}/${cups.length}] Generating ${cup.name}...`));
         await generateCustomCup(cup, args.debug);
-        cupNames.push(cup.name);
         console.log(chalk.green(`✓ ${cup.name} complete\n`));
       }
 
-      // Copy rankings to root data folder
-      copyDataToRoot(cupNames);
+      // Copy data to root folder (pass full cups array for formats.json generation)
+      copyDataToRoot(cups);
 
       console.log(chalk.green.bold(`\nAll done! Generated ${cups.length} cup(s)`));
       console.log(chalk.gray(`Results copied to data/rankings/\n`));
     } else {
-      await generatePredefinedCup(args.cup, args.league || '1500');
+      const league = args.league || '1500';
+      await generatePredefinedCup(args.cup, league);
 
-      // Copy rankings to root data folder
-      copyDataToRoot([args.cup]);
+      // Copy data to root folder
+      copyDataToRoot([{ name: args.cup, title: args.cup, league: parseInt(league) }]);
 
       console.log(chalk.green(`\nDone! Results copied to data/rankings/${args.cup}/\n`));
     }
