@@ -21,17 +21,21 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 
 // Copy directory recursively
-function copyDirSync(src, dest) {
+function copyDirSync(src, dest, exclude = []) {
   if (!fs.existsSync(src)) {
     return false;
   }
   fs.mkdirSync(dest, { recursive: true });
   const entries = fs.readdirSync(src, { withFileTypes: true });
   for (const entry of entries) {
+    // Skip excluded directories
+    if (exclude.includes(entry.name)) {
+      continue;
+    }
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
     if (entry.isDirectory()) {
-      copyDirSync(srcPath, destPath);
+      copyDirSync(srcPath, destPath, exclude);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
@@ -159,10 +163,10 @@ function copyDataToRoot(cups) {
 
   const spinner = ora('Copying data to data/...').start();
 
-  // Copy gamemaster folder
+  // Copy gamemaster folder (excluding cups)
   const gamemasterSrc = path.join(srcDataBase, 'gamemaster');
   const gamemasterDest = path.join(destDataBase, 'gamemaster');
-  if (copyDirSync(gamemasterSrc, gamemasterDest)) {
+  if (copyDirSync(gamemasterSrc, gamemasterDest, ['cups'])) {
     spinner.text = 'Copied gamemaster';
   }
 

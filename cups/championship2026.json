@@ -40,6 +40,18 @@
         }
       ],
       "exclude": []
+    },
+    {
+      "name": "master_league_mega",
+      "title": "Master League: Mega Edition",
+      "league": 10000,
+      "include": [
+        {
+          "filterType": "tag",
+          "values": ["mega"]
+        }
+      ],
+      "exclude": []
     }
   ]
 }
