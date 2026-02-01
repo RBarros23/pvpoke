@@ -2,6 +2,7 @@
   "cups": [
     {
       "name": "championship2026",
+      "title": "2026 Championship Series Cup",
       "league": 1500,
       "include": [
         {
@@ -30,6 +31,7 @@
     },
     {
       "name": "lovecup",
+      "title": "Love Cup",
       "league": 1500,
       "include": [
         {
