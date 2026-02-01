@@ -63,8 +63,16 @@ function enhanceRankingsFile(filePath, moveTypes) {
     }
   }
 
-  // Enhance each Pokemon's matchups and counters
+  // Enhance each Pokemon's moveset, matchups and counters
   for (const pokemon of rankings) {
+    // Enhance Pokemon's own moveset with types
+    if (pokemon.moveset && Array.isArray(pokemon.moveset)) {
+      pokemon.moveset = pokemon.moveset.map(moveId => ({
+        moveId,
+        type: moveTypes[moveId] || 'unknown'
+      }));
+    }
+
     // Enhance matchups
     if (pokemon.matchups) {
       for (const matchup of pokemon.matchups) {
