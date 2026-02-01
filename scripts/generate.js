@@ -50,8 +50,19 @@ function loadMoveTypes() {
   return moveTypes;
 }
 
-// Enhance rankings file with opponent move data
-function enhanceRankingsFile(filePath, moveTypes) {
+// Load pokemon.json and create speciesId -> types lookup
+function loadPokemonTypes() {
+  const pokemonPath = path.join(projectRoot, 'src', 'data', 'gamemaster', 'pokemon.json');
+  const pokemon = JSON.parse(fs.readFileSync(pokemonPath, 'utf8'));
+  const pokemonTypes = {};
+  for (const mon of pokemon) {
+    pokemonTypes[mon.speciesId] = mon.types;
+  }
+  return pokemonTypes;
+}
+
+// Enhance rankings file with opponent move data and Pokemon types
+function enhanceRankingsFile(filePath, moveTypes, pokemonTypes) {
   const content = fs.readFileSync(filePath, 'utf8');
   const rankings = JSON.parse(content);
 
@@ -65,6 +76,11 @@ function enhanceRankingsFile(filePath, moveTypes) {
 
   // Enhance each Pokemon's moveset, matchups and counters
   for (const pokemon of rankings) {
+    // Add Pokemon types
+    if (pokemon.speciesId && pokemonTypes[pokemon.speciesId]) {
+      pokemon.types = pokemonTypes[pokemon.speciesId];
+    }
+
     // Enhance Pokemon's own moveset with types
     if (pokemon.moveset && Array.isArray(pokemon.moveset)) {
       pokemon.moveset = pokemon.moveset.map(moveId => ({
@@ -104,7 +120,7 @@ function enhanceRankingsFile(filePath, moveTypes) {
 }
 
 // Copy and enhance rankings directory
-function copyAndEnhanceRankings(src, dest, moveTypes) {
+function copyAndEnhanceRankings(src, dest, moveTypes, pokemonTypes) {
   if (!fs.existsSync(src)) {
     return false;
   }
@@ -114,10 +130,10 @@ function copyAndEnhanceRankings(src, dest, moveTypes) {
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
     if (entry.isDirectory()) {
-      copyAndEnhanceRankings(srcPath, destPath, moveTypes);
+      copyAndEnhanceRankings(srcPath, destPath, moveTypes, pokemonTypes);
     } else if (entry.name.endsWith('.json')) {
       // Enhance rankings JSON files
-      const enhanced = enhanceRankingsFile(srcPath, moveTypes);
+      const enhanced = enhanceRankingsFile(srcPath, moveTypes, pokemonTypes);
       fs.writeFileSync(destPath, JSON.stringify(enhanced, null, '\t'));
     } else {
       fs.copyFileSync(srcPath, destPath);
@@ -154,14 +170,15 @@ function copyDataToRoot(cups) {
   fs.writeFileSync(formatsPath, JSON.stringify(formats, null, '\t'));
   spinner.text = 'Generated custom formats.json';
 
-  // Load move types for enhancing rankings
+  // Load move and Pokemon types for enhancing rankings
   const moveTypes = loadMoveTypes();
-  spinner.text = 'Loaded move types';
+  const pokemonTypes = loadPokemonTypes();
+  spinner.text = 'Loaded move and Pokemon types';
 
   // Copy and enhance rankings/all folder
   const allSrc = path.join(srcDataBase, 'rankings', 'all');
   const allDest = path.join(destDataBase, 'rankings', 'all');
-  if (copyAndEnhanceRankings(allSrc, allDest, moveTypes)) {
+  if (copyAndEnhanceRankings(allSrc, allDest, moveTypes, pokemonTypes)) {
     spinner.text = 'Enhanced rankings/all';
   }
 
@@ -169,7 +186,7 @@ function copyDataToRoot(cups) {
   for (const cup of cups) {
     const cupSrc = path.join(srcDataBase, 'rankings', cup.name);
     const cupDest = path.join(destDataBase, 'rankings', cup.name);
-    if (copyAndEnhanceRankings(cupSrc, cupDest, moveTypes)) {
+    if (copyAndEnhanceRankings(cupSrc, cupDest, moveTypes, pokemonTypes)) {
       spinner.text = `Enhanced rankings/${cup.name}`;
     }
   }
