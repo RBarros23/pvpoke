@@ -1,0 +1,13 @@
+{
+  "name": "pvpoke-rankings-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "ora": "^8.0.1",
+    "chalk": "^5.3.0"
+  }
+}

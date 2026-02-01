@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  pvpoke:
+    image: php:8.2-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    command: >
+      bash -c "a2enmod rewrite &&
+               sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf &&
+               apache2-foreground"
